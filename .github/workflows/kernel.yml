@@ -11,9 +11,7 @@ on:
 jobs:
   Read-configuration:
     name: 🐂 Parse *.config.json
-    runs-on: ubuntu-latest
-    container:
-      image: python:2.7-buster
+    runs-on: ubuntu-22.04
     outputs:
       CONFIGS: ${{ steps.generate-matrix.outputs.CONFIGS }}
       BUILD_DATE: ${{ steps.generate-builddate.outputs.BUILDDATE }}
@@ -21,10 +19,6 @@ jobs:
       # This action checks-out your CONFIGSitory under $GITHUB_WORKSPACE, so your workflow can access it.
       - name: 😄 Checkout
         uses: actions/checkout@v4
-      - name: 🧰 Install jq (needed for Generate Matrix)
-        run: |
-          apt-get update
-          apt-get install -y jq
       # Match the configuration files in the CONFIGS directory, read the contents and merge them into an array.
       - name: 😆 Generate Matrix
         id: generate-matrix
@@ -115,7 +109,7 @@ jobs:
           sudo apt-get install -y zip unzip tar gzip bzip2 rar unrar llvm g++-multilib bison gperf zlib1g-dev automake
       
           # ensure pip/setuptools available if needed
-          sudo apt-get install -y python3 python3-pip python-is-python3
+          sudo apt-get install -y python2 python2-dev python3 python3-pip python-is-python3
           python -m pip install --upgrade pip setuptools wheel
       # Initialize ccache
       - name: 🚄 Setup ccache
