@@ -12,6 +12,8 @@ jobs:
   Read-configuration:
     name: 🐂 Parse *.config.json
     runs-on: ubuntu-latest
+    container:
+      image: python:2.7-buster
     outputs:
       CONFIGS: ${{ steps.generate-matrix.outputs.CONFIGS }}
       BUILD_DATE: ${{ steps.generate-builddate.outputs.BUILDDATE }}
